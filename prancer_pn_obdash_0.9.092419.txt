@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Change External Dashboard Headers
+// @name         Prancer - Change External Dashboard Headers
 // @namespace    http://tampermonkey.net/
 // @version      0.3
 // @description  try to take over the world!
