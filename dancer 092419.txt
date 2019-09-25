@@ -1,0 +1,61 @@
+// ==UserScript==
+// @name         Change External Dashboard Headers
+// @namespace    http://tampermonkey.net/
+// @version      0.3
+// @description  try to take over the world!
+// @author       You
+// @match        https://aftlite-portal.amazon.com/ojs/OrchaJSFaaSTCoreProcess/OutboundDashboard
+// @require      http://code.jquery.com/jquery-3.3.1.min.js
+// ==/UserScript==
+
+setTimeout(function(){
+try{
+	var d= new Date();
+	var h= d.getHours();
+	var m= d.getMinutes();
+	if(m >= 15 && ((h == 1 || h == 3 || h == 5 || h== 7 || h == 9 || h == 11 || h == 13 || h == 15 || h == 17 || h == 19 || h == 21 || h == 23))){
+		var a= "Scheduled 1HR Orders<BR>1HR | 2HR"
+		}else if( m < 30 && (h == 2 || h == 4 || h == 6 || h == 8 || h == 10 || h == 12 || h == 14 || h == 16 || h == 18 || h == 20 || h == 22)){
+			var b= "<75m To Slam<BR>1HR | 2HR"
+			}else if( m < 45 && (h == 2 || h == 4 || h == 6 || h == 8 || h == 10 || h == 12 || h == 14 || h == 16 || h == 18 || h == 20 || h == 22)){
+			var f= "<60m To Slam<BR>1HR | 2HR"
+			}else if( m <= 59 && (h == 2 || h == 4 || h == 6 || h == 8 || h == 10 || h == 12 || h == 14 || h == 16 || h == 18 || h == 20 || h == 22)){
+			var g= "<45m To Slam<BR>1HR | 2HR"
+			}else if( m < 15 && ((h == 1 || h == 3 || h == 5 || h== 7 || h == 9 || h == 11 || h == 13 || h == 15 || h == 17 || h == 19 || h == 21 || h == 23))){
+				var c= "<75m To Slam<BR>1HR | 2HR"
+				}
+
+	if(m < 10 || m >= 30){
+		setInterval(function(){ location.reload(); }, 300000);
+		var y="<30m to Slam<BR>1HR | 2HR"
+		}else if(m < 20){
+			setInterval(function(){ location.reload(); }, 300000);
+			var x="<20m to Slam<BR>1HR | 2HR"
+			}else if(m < 25){
+				setInterval(function(){ location.reload(); }, 300000);
+				var z="<10m to Slam<BR>1HR | 2HR"
+				}else if(m < 29){
+					setInterval(function(){ location.reload(); }, 60000);
+					var v="<5m to Slam<BR>1HR | 2HR"
+					}else if(m == 29){
+	setInterval(function(){ location.reload(); }, 60000);
+						var q="Last Minute!!<BR>1HR | 2HR"
+						}
+
+	document.getElementById('orchajs_obd_heading_missed').innerHTML= "Late 1HR";
+	document.getElementById('orchajs_obd_heading_less5min').innerHTML= "<5m to Slam 1HR";
+	document.getElementById('orchajs_obd_heading_less15min').innerHTML= "<15m to Slam 1HR";
+	document.getElementById('orchajs_obd_heading_less45min').innerHTML= "We're Late!!!<BR>1HR | 2HR";
+	document.getElementById('orchajs_obd_heading_less75min').innerHTML= (y || x || z || v || q);
+	document.getElementById('orchajs_obd_heading_less2h').innerHTML= (a || b || c || f || g);
+	document.getElementById('orchajs_obd_heading_less4h').innerHTML= "Next Window<BR>1HR | 2HR";
+	document.getElementById('orchajs_obd_heading_more4h').innerHTML= "Futures<BR>1HR | 2HR";
+	document.getElementById('orchajs_obd_heading_total').innerHTML= "Total<BR>1HR | 2HR";
+}
+catch(e){
+	setInterval(function(){location.reload()}, 3000);
+}
+finally{
+	setInterval(function(){location.reload()}, 300000);
+}
+}, 3000)
