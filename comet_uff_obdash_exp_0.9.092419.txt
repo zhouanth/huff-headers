@@ -168,13 +168,14 @@ if(state45 == "" && h >= 3 && h <= 22){
 } else if (m <= 4){
     batchingspan.innerHTML = "Next batching begins in "+(4-m)+" minutes at "+(h)+":04.";
 }
-document.querySelector("#orchaJsWebAppCanvas > div > div.ojs-process-div.flex.flex-container > div > footer").prepend(batchingspan);
+//document.querySelector("#orchaJsWebAppCanvas > div > div.ojs-process-div.flex.flex-container > div > footer").prepend(batchingspan);
 }
 
 if(minToSlam < 10 || totalRUSH > 0){setInterval(function(){location.reload()}, 60000)} else {setInterval(function(){location.reload()}, 300000)}
 
 }
 catch(e){
+console.log(e);
     setInterval(function(){location.reload()}, 5000);
 }
 finally{
