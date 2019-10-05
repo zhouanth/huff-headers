@@ -112,7 +112,7 @@ if(h >= 3 && h <= 22){
     if(state45 == "" && minToSlam > 0){
         state75 = "Current<BR>" + (h+1) + ":00-<BR><" + (minToSlam) + " min";
     } else if (state45 != "" && total75 > 0){
-        state75 = "Next Window<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min";
+        state75 = "Next<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min";
     }
 }
 
@@ -133,7 +133,7 @@ if((h >= 3 && h <= 22) && (minToSlam <= 15)){
 //<4hr block
 var state4hr = "";
 if(h <= 20){
-    state4hr = "Future Windows<BR>";
+    state4hr = "Future<BR>";
     if(minToSlam > 15){
         state4hr += (h+2)+","+(h+3)+":00-";
     } else if (minToSlam <= 15){
