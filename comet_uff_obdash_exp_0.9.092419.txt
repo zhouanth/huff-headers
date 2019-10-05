@@ -110,9 +110,9 @@ var state75 = "";
 
 if(h >= 3 && h <= 22){
     if(state45 == "" && minToSlam > 0){
-        state75 = "Current Window<BR>" + (h+1) + ":00-<BR><" + (minToSlam) + " min to slam";
+        state75 = "Current Window<BR>" + (h+1) + ":00-<BR><" + (minToSlam) + " min";
     } else if (state45 != "" && total75 > 0){
-        state75 = "Next Window<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min to slam";
+        state75 = "Next Window<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min";
     }
 }
 
@@ -127,7 +127,7 @@ if((h >= 3 && h <= 22) && (minToSlam <= 15)){
         state2hr = "Future Window";
     }
     state2hr+= "<BR>" + String(h+2) + ":00-";
-    state2hr+= "<BR><" + String(90-m) + " min to slam";
+    state2hr+= "<BR><" + String(90-m) + " min";
 }
 
 //<4hr block
@@ -140,13 +140,16 @@ if(h <= 20){
         state4hr += (h+3)+","+(h+4)+":00-";
     }
 
-    state4hr += "<BR><195min to slam";
+    state4hr += "<BR><195min";
 }
 
 //header overwrites
+document.getElementById("orchajs_obd_heading_status").innerHTML = "Window:<BR><BR>SLAM Cutoff in:";
+document.getElementById("orchajs_obd_heading_status").parentNode.classList.remove("a-text-left");
+document.getElementById("orchajs_obd_heading_status").parentNode.classList.add("a-text-right");
 document.getElementById('orchajs_obd_heading_missed').innerHTML = "Rush 1HR<BR><BR>Late";
-document.getElementById('orchajs_obd_heading_less5min' ).innerHTML = "Rush 1HR<BR><BR><5 min to slam";
-document.getElementById('orchajs_obd_heading_less15min').innerHTML = "Rush 1HR<BR><BR><15 min to slam";
+document.getElementById('orchajs_obd_heading_less5min' ).innerHTML = "Rush 1HR<BR><BR><5 min";
+document.getElementById('orchajs_obd_heading_less15min').innerHTML = "Rush 1HR<BR><BR><15 min";
 document.getElementById('orchajs_obd_heading_less45min').innerHTML = state45;
 color(document.getElementById('orchajs_obd_heading_less45min').parentNode);
 console.log(document.getElementById('orchajs_obd_heading_less45min').parentNode);
@@ -156,7 +159,7 @@ document.getElementById('orchajs_obd_heading_less2h').innerHTML = state2hr;
 color(document.getElementById('orchajs_obd_heading_less2h').parentNode);
 document.getElementById('orchajs_obd_heading_less4h').innerHTML = state4hr;
 color(document.getElementById('orchajs_obd_heading_less4h').parentNode);
-document.getElementById('orchajs_obd_heading_more4h').innerHTML = "Future Windows<BR><BR>>195min to slam";
+document.getElementById('orchajs_obd_heading_more4h').innerHTML = "Future Windows<BR><BR>>195min";
 document.getElementById('orchajs_obd_heading_total').innerHTML = "Total<BR><BR>1HR | 2HR";
 
 var batchingspan = document.createElement("span");
