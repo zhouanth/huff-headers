@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Vixen - UFF Outbound Dashboard Headers - Experimental
 // @namespace    http://tampermonkey.net/
-// @version      0.9.092119
+// @version      0.9.103119
 // @description  try to take over the world!
 // @author       zhouanth@amazon.com
 // @grant        none
@@ -37,7 +37,7 @@ else {
 }
 
 try{
-document.querySelector("#orchaJsWebAppCanvas > div > div.a-container.a-global-nav-wrapper.nav-bar.no-flex > div > div.a-column.a-span6.a-text-center > span").innerHTML = "UCA1 — Outbound Dashboard BETA";
+document.querySelector("#orchaJsWebAppCanvas > div > div.a-container.a-global-nav-wrapper.nav-bar.no-flex > div > div.a-column.a-span6.a-text-center > span").innerHTML = "UCA1 — Outbound Dashboard";
 
 function color(header){
     if(header.children[0].innerHTML.includes("Current")){header.style.backgroundColor = "#63D1F4";}
@@ -47,9 +47,9 @@ function color(header){
 var d = new Date();
 var h = d.getHours();
 var m = d.getMinutes();
-var minToSlam = 30-m;
+var minToSlam = 30 - m;
 
-//Rush 1HR Late block
+//Rush 1HR — Late block
 var ambient00 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(8) > td:nth-child(3)")).children[0].innerHTML);
 var bigs00 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(15) > td:nth-child(3)")).children[0].innerHTML);
 var cold00 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(23) > td:nth-child(3)")).children[0].innerHTML);
@@ -57,13 +57,13 @@ var total00 = ambient00 + bigs00 + cold00;
 
 document.querySelector((selPre + "tbody:nth-child(1) > tr > th:nth-child(3)")).classList.remove("a-align-bottom");
 
-//Rush 1HR <5min block
+//Rush 1HR — <5 min block
 var ambient05 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(8) > td:nth-child(4)")).children[0].innerHTML);
 var bigs05 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(15) > td:nth-child(4)")).children[0].innerHTML);
 var cold05 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(23) > td:nth-child(4)")).children[0].innerHTML);
 var total05 = ambient05 + bigs05 + cold05;
 
-//Rush 1HR <15min block
+//Rush 1HR — <15 min block
 var ambient15 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(8) > td:nth-child(5)")).children[0].innerHTML);
 var bigs15 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(15) > td:nth-child(5)")).children[0].innerHTML);
 var cold15 = Number(document.querySelector((selPre + "tbody:nth-child(2) > tr:nth-child(23) > td:nth-child(5)")).children[0].innerHTML);
@@ -102,9 +102,9 @@ var state75 = "";
 
 if(h >= 3 && h <= 22){
     if(state45 == "" && minToSlam > 0){
-        state75 = "Current Window<BR>" + (h+1) + ":00-<BR><" + (minToSlam) + " min to slam";
+        state75 = "Current<BR>" + (h+1) + ":00-<BR><" + (minToSlam) + " min";
     } else if (state45 != "" && total75 > 0){
-        state75 = "Next Window<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min to slam";
+        state75 = "Next<BR>" + (h+2) + ":00-<BR><" + (60 + minToSlam) + " min";
     }
 }
 
@@ -112,33 +112,37 @@ if(h >= 3 && h <= 22){
 var state2hr = "";
 if((h >= 3 && h <= 22) && (minToSlam <= 15)){
     if(state45 == "" && state75 == ""){
-        state2hr = "Current Window";
+        state2hr = "Current";
     } else if(state45 == ""){
-        state2hr = "Next Window";
+        state2hr = "Next";
     } else {
-        state2hr = "Future Window";
+        state2hr = "Future";
     }
     state2hr+= "<BR>" + String(h+2) + ":00-";
-    state2hr+= "<BR><" + String(90-m) + " min to slam";
+    state2hr+= "<BR><" + String(90-m) + " min";
 }
 
 //<4hr block
 var state4hr = "";
 if(h <= 20){
-    state4hr = "Future Windows<BR>";
+    state4hr = "Future<BR>";
     if(minToSlam > 15){
         state4hr += (h+2)+","+(h+3)+":00-";
     } else if (minToSlam <= 15){
         state4hr += (h+3)+","+(h+4)+":00-";
     }
 
-    state4hr += "<BR><195min to slam";
+    state4hr += "<BR><195min";
 }
 
 //header overwrites
+document.getElementById("orchajs_obd_heading_status").innerHTML = "Window:<BR><BR>SLAM Cutoff in:";
+document.getElementById("orchajs_obd_heading_status").parentNode.classList.remove("a-text-left");
+document.getElementById("orchajs_obd_heading_status").parentNode.classList.remove("a-align-bottom");
+document.getElementById("orchajs_obd_heading_status").parentNode.classList.add("a-text-right");
 document.getElementById('orchajs_obd_heading_missed').innerHTML = "Rush 1HR<BR><BR>Late";
-document.getElementById('orchajs_obd_heading_less5min' ).innerHTML = "Rush 1HR<BR><BR><5 min to slam";
-document.getElementById('orchajs_obd_heading_less15min').innerHTML = "Rush 1HR<BR><BR><15 min to slam";
+document.getElementById('orchajs_obd_heading_less5min' ).innerHTML = "Rush 1HR<BR><BR><5 min";
+document.getElementById('orchajs_obd_heading_less15min').innerHTML = "Rush 1HR<BR><BR><15 min";
 document.getElementById('orchajs_obd_heading_less45min').innerHTML = state45;
 color(document.getElementById('orchajs_obd_heading_less45min').parentNode);
 document.getElementById('orchajs_obd_heading_less75min').innerHTML = state75;
@@ -147,9 +151,10 @@ document.getElementById('orchajs_obd_heading_less2h').innerHTML = state2hr;
 color(document.getElementById('orchajs_obd_heading_less2h').parentNode);
 document.getElementById('orchajs_obd_heading_less4h').innerHTML = state4hr;
 color(document.getElementById('orchajs_obd_heading_less4h').parentNode);
-document.getElementById('orchajs_obd_heading_more4h').innerHTML = "Future Windows<BR><BR>>195min to slam";
+document.getElementById('orchajs_obd_heading_more4h').innerHTML = "Future<BR><BR>>195 min";
 document.getElementById('orchajs_obd_heading_total').innerHTML = "Total<BR><BR>1HR | 2HR";
 
+/*
 var batchingspan = document.createElement("span");
 if(state45 == "" && h >= 3 && h <= 22){
     if(m > 4 && m < 34 && h > 22){
@@ -161,6 +166,17 @@ if(state45 == "" && h >= 3 && h <= 22){
 }
 document.querySelector("#orchaJsWebAppCanvas > div > div.ojs-process-div.flex.flex-container > div > footer").prepend(batchingspan);
 }
+*/
+
+/*
+function removeTagByTagName(tagName) {
+  var ele = document.getElementsByTagName(tagName);
+  return ele[0].parentNode.removeChild(ele[0]);
+}
+removeTagByTagName('footer');
+*/
+
+//document.getElementsByTagName('footer').style.display = "none";
 
 if(minToSlam < 10 || totalRUSH > 0){setInterval(function(){location.reload()}, 60000)} else {setInterval(function(){location.reload()}, 300000)}
 
